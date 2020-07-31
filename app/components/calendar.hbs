@@ -1,0 +1,9 @@
+<Input @value={{this.selectedDate}} disabled />
+{{this.currentMonth}}
+{{#each @model as |weeks|}}
+<div class="row">
+  {{#each weeks as |days|}}
+  <Calendar::Day @day={{days}} @selectDate={{this.changeDate}} />
+  {{/each}}
+</div>
+{{/each}}

@@ -1,0 +1,8 @@
+<div class="cell {{if this.notThisMonth "grayed"}}"
+  {{on "click" (fn @selectDate @day.iso)}}>
+  {{#if this.isToday}}
+  <span class="today">{{@day.date}}</span>
+  {{else}}
+  {{@day.date}}
+  {{/if}}
+</div>
