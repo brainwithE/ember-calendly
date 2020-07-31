@@ -4,10 +4,8 @@ const calendarDates = new CalendarDates();
 
 export default class IndexRoute extends Route {
   async model() {
-    let days = [];
-    for (const meta of await calendarDates.getMatrix(new Date())) {
-      days.push(meta);
-    }
-    return days;
+    const matrix = await calendarDates.getMatrix(new Date());
+    console.log(`Matrix`, matrix);
+    return matrix;
   }
 }
