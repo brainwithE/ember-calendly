@@ -1,8 +1,8 @@
-<Input @value={{this.selectedDate}} disabled class="input" />
-{{!-- {{#each @model as |weeks|}} --}}
+<div class="row">
+  <Input @value={{this.selectedDate}} disabled class="input" />
+</div>
 <Calendar::Heading @changeMonth={{this.changeMonth}}>
   {{this.currentMonth}}
-  {{!-- {{this.currentYear}} --}}
 </Calendar::Heading>
 <div class="row day-heading">
   {{#each this.dayNames as |day|}}

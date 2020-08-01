@@ -6,11 +6,6 @@ import moment from "moment";
 import CalendarDates from "calendar-dates";
 const calendarDates = new CalendarDates();
 
-// matrix = aysnc () => {
-//   const matrix = await calendarDates.getMatrix(new Date()); // date must be dynamic
-//   return matrix;
-// }
-
 const fetchMatrix = async (date = null) => {
   const getMonth = date ? new Date(date) : new Date();
   const data = await calendarDates.getMatrix(getMonth);
@@ -33,7 +28,6 @@ export default class CalendarComponent extends Component {
 
   @action changeMonth(type) {
     this.monthCounter = this.monthCounter + type;
-    console.log('moment', moment()  )
     const month = moment().add(this.monthCounter, "month");
     this.currentMonth = month.format("MMMM YYYY");
     this.matrix = this.fetchDates(month);
