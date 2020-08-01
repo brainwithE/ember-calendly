@@ -19,7 +19,7 @@ const fetchMatrix = async (date = null) => {
 
 export default class CalendarComponent extends Component {
   @tracked matrix = this.fetchDates();
-  @tracked selectedDate = moment().format("DD/MM/YYYY");
+  @tracked selectedDate = moment().format("MM/DD/YYYY");
   @tracked currentMonth = moment().format("MMMM YYYY");
   @tracked monthCounter = 0
 
@@ -28,7 +28,7 @@ export default class CalendarComponent extends Component {
   }
 
   @action changeDate(date) {
-    this.selectedDate = moment(date).format("DD/MM/YYYY");
+    this.selectedDate = moment(date).format("MM/DD/YYYY");
   }
 
   @action changeMonth(type) {
@@ -40,6 +40,6 @@ export default class CalendarComponent extends Component {
   }
 
   get dayNames() {
-    return ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+    return moment.weekdaysMin();
   }
 }

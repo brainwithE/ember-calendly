@@ -2,11 +2,16 @@
   justify-content: center;
 }
 .cell {
-  flex-basis: 14%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 14.2%;
   height: 5em;
-  border: 1px solid #000000;
-  color: #000;
+  /* border: 1px solid #000000; */
+  color: #333;
+  text-align: center;
   padding: 8px;
+  cursor: pointer;
 }
 
 .grayed {
@@ -15,6 +20,7 @@
 
 .today {
   display: block;
+  margin: auto;
   color: white;
   background: red;
   border-radius: 100%;
@@ -23,8 +29,36 @@
   text-align: center;
 }
 
+.month {
+  justify-content: space-between;
+  /* background: #fe623e; */
+}
+
+.day-heading {
+  align-items: center;
+  background: #1a363f;
+  min-height: 4em;
+  margin-top: 1em;
+}
+
 .heading {
   flex-basis: 14%;
-  color: #000;
   padding: 8px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.input {
+  display: block;
+  padding: 11px;
+  font-size: 18px;
+  width: 100%;
+  margin: 20px auto 50px;
+  /* background-color: rgba(255, 255, 255, 0.75); */
+  border: solid 1px lightgray;
+}
+
+.actions {
+  border: none;
+  background: none;
 }

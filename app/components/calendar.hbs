@@ -1,10 +1,10 @@
-<Input @value={{this.selectedDate}} disabled />
+<Input @value={{this.selectedDate}} disabled class="input" />
 {{!-- {{#each @model as |weeks|}} --}}
 <Calendar::Heading @changeMonth={{this.changeMonth}}>
   {{this.currentMonth}}
   {{!-- {{this.currentYear}} --}}
 </Calendar::Heading>
-<div class="row">
+<div class="row day-heading">
   {{#each this.dayNames as |day|}}
   <Calendar::DayName>
     {{day}}
@@ -12,7 +12,7 @@
   {{/each}}
 </div>
 {{#each this.matrix as |weeks|}}
-<div class="row">
+<div class="row weeks">
   {{#each weeks as |days|}}
   <Calendar::Day @day={{days}} @selectDate={{this.changeDate}} />
   {{/each}}
