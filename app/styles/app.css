@@ -1,3 +1,6 @@
+.row {
+  justify-content: center;
+}
 .cell {
   flex-basis: 14%;
   height: 5em;
@@ -18,4 +21,10 @@
   width: 1.5em;
   height: 1.5em;
   text-align: center;
+}
+
+.heading {
+  flex-basis: 14%;
+  color: #000;
+  padding: 8px;
 }

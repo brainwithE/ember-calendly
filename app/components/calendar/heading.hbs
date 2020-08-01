@@ -1,0 +1,6 @@
+<div class="row">
+  {{!-- <button {{on "click" (fn this.changeMonth)}}>prev</button> --}}
+  <button type="button" {{on "click" (fn @changeMonth -1)}}>prev</button>
+  <h1>{{yield}}</h1>
+  <button type="button" {{on "click" (fn @changeMonth 1)}}>next</button>
+</div>
