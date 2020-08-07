@@ -1,5 +1,5 @@
 <div class="cell {{if this.notThisMonth "grayed"}}"
-  {{on "click" (fn @selectDate @day.iso)}}>
+  {{on "click" (fn @selectDate @day.fullDate)}}>
   {{#if this.isToday}}
   <span class="today">{{@day.date}}</span>
   {{else}}

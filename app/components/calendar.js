@@ -1,39 +1,92 @@
 import Component from "@glimmer/component";
 import { tracked } from "@glimmer/tracking";
 import { action } from "@ember/object";
-import moment from "moment";
 
-import CalendarDates from "calendar-dates";
-const calendarDates = new CalendarDates();
+export default class CalendlyComponent extends Component {
+  @tracked selectedDate = this.currentDate;
+  @tracked selectedMonth = this.selectedDate.getMonth();
+  @tracked selectedYear = this.selectedDate.getFullYear();
+  @tracked matrix = this.loadCalendarDays(
+    this.selectedYear,
+    this.selectedMonth
+  );
 
-const fetchMatrix = async (date = null) => {
-  const getMonth = date ? new Date(date) : new Date();
-  const data = await calendarDates.getMatrix(getMonth);
-  return data;
-};
+  get dayNames() {
+    return ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  }
 
-export default class CalendarComponent extends Component {
-  @tracked matrix = this.fetchDates();
-  @tracked selectedDate = moment().format("MM/DD/YYYY");
-  @tracked currentMonth = moment().format("MMMM YYYY");
-  @tracked monthCounter = 0
+  get currentDate() {
+    return new Date();
+  }
 
-  @action fetchDates(date) {
-    fetchMatrix(date).then((res) => (this.matrix = res));
+  get totalDays() {
+    return this.daysInMonth(this.selectedMonth, this.selectedYear);
+  }
+
+  @action loadCalendarDays(year, month) {
+    const startDate = this.startOfWeek(new Date(year, month, 1));
+    const rows = 6;
+    const cols = 7;
+    const length = rows * cols;
+    return (
+      Array.from({ length })
+        // create a list of dates
+        .map((_, index) => {
+          const updatedDate = this.addDays(startDate, index);
+          return {
+            date: updatedDate.getDate(),
+            fullDate: updatedDate,
+            type:
+              updatedDate.getMonth() === this.selectedMonth
+                ? "current"
+                : updatedDate.getMonth() > this.selectedMonth
+                ? "next"
+                : "prev",
+          };
+        })
+        // fold the array into a matrix
+        .reduce((matrix, current, index, days) => {
+          return !(index % cols !== 0)
+            ? [...matrix, days.slice(index, index + cols)]
+            : matrix;
+        }, [])
+    );
+  }
+
+  @action addDays(date, addedDays) {
+    let initialDate = new Date(date);
+    initialDate.setDate(initialDate.getDate() + addedDays);
+    return initialDate;
+  }
+
+  @action daysInMonth(monthIndex, year) {
+    const totalDays = new Date(year, monthIndex + 1, 0);
+    return totalDays.getDate();
+  }
+
+  @action startOfWeek(param) {
+    const date = new Date(param);
+    const day = date.getDay();
+    const diff = date.getDate() - day + (day === 0 ? -6 : 0);
+
+    return new Date(date.setDate(diff));
   }
 
   @action changeDate(date) {
-    this.selectedDate = moment(date).format("MM/DD/YYYY");
+    this.selectedDate = date;
   }
 
-  @action changeMonth(type) {
-    this.monthCounter = this.monthCounter + type;
-    const month = moment().add(this.monthCounter, "month");
-    this.currentMonth = month.format("MMMM YYYY");
-    this.matrix = this.fetchDates(month);
-  }
+  @action changeSelectedMonth(type) {
+    if (type === "next") {
+      this.selectedMonth = this.selectedMonth < 11 ? this.selectedMonth + 1 : 0;
+      this.selectedYear =
+        this.selectedMonth === 0 ? this.selectedYear + 1 : this.selectedYear;
+    } else {
+      this.selectedMonth = this.selectedMonth > 0 ? this.selectedMonth - 1 : 11;
+      this.selectedYear =
+        this.selectedMonth === 11 ? this.selectedYear - 1 : this.selectedYear;
+    }
 
-  get dayNames() {
-    return moment.weekdaysMin();
+    this.matrix = this.loadCalendarDays(this.selectedYear, this.selectedMonth);
   }
 }

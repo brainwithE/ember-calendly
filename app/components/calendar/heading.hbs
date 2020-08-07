@@ -1,6 +1,5 @@
 <div class="row month">
-  {{!-- <button {{on "click" (fn this.changeMonth)}}>prev</button> --}}
-  <button class="actions" type="button" {{on "click" (fn @changeMonth -1)}}>
+  <button class="actions" type="button" {{on "click" (fn @changeMonth 'prev')}}>
     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-circle-fill" fill="currentColor"
       xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd"
@@ -8,7 +7,7 @@
     </svg>
   </button>
   <h2>{{yield}}</h2>
-  <button class="actions" type="button" {{on "click" (fn @changeMonth 1)}}>
+  <button class="actions" type="button" {{on "click" (fn @changeMonth 'next')}}>
     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor"
       xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd"

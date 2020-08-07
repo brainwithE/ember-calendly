@@ -7,6 +7,17 @@ export default class CalendarDayComponent extends Component {
   }
 
   get isToday() {
-    return this.args.day.iso === moment().format("YYYY-MM-DD");
+    const { fullDate } = this.args.day;
+    const currentDate = new Date();
+
+    const currentDateISO = `${currentDate.getFullYear()}-
+    ${currentDate.getMonth()}-
+    ${currentDate.getDate()}`;
+    
+    const fulldateISO = `${fullDate.getFullYear()}-
+    ${fullDate.getMonth()}-
+    ${fullDate.getDate()}`;
+
+    return currentDateISO === fulldateISO;
   }
 }

@@ -1,8 +1,9 @@
 <div class="row">
-  <Input @value={{this.selectedDate}} disabled class="input" />
+  <Input @value={{dateformat this.selectedDate}} disabled class="input" />
 </div>
-<Calendar::Heading @changeMonth={{this.changeMonth}}>
-  {{this.currentMonth}}
+<Calendar::Heading @changeMonth={{this.changeSelectedMonth}}>
+  {{monthnames this.selectedMonth}}
+  {{this.selectedYear}}
 </Calendar::Heading>
 <div class="row day-heading">
   {{#each this.dayNames as |day|}}
