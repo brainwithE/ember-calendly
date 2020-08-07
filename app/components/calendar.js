@@ -19,10 +19,6 @@ export default class CalendlyComponent extends Component {
     return new Date();
   }
 
-  get totalDays() {
-    return this.daysInMonth(this.selectedMonth, this.selectedYear);
-  }
-
   @action loadCalendarDays(year, month) {
     const startDate = this.startOfWeek(new Date(year, month, 1));
     const rows = 6;
@@ -30,7 +26,6 @@ export default class CalendlyComponent extends Component {
     const length = rows * cols;
     return (
       Array.from({ length })
-        // create a list of dates
         .map((_, index) => {
           const updatedDate = this.addDays(startDate, index);
           return {
@@ -44,7 +39,6 @@ export default class CalendlyComponent extends Component {
                 : "prev",
           };
         })
-        // fold the array into a matrix
         .reduce((matrix, current, index, days) => {
           return !(index % cols !== 0)
             ? [...matrix, days.slice(index, index + cols)]
@@ -57,11 +51,6 @@ export default class CalendlyComponent extends Component {
     let initialDate = new Date(date);
     initialDate.setDate(initialDate.getDate() + addedDays);
     return initialDate;
-  }
-
-  @action daysInMonth(monthIndex, year) {
-    const totalDays = new Date(year, monthIndex + 1, 0);
-    return totalDays.getDate();
   }
 
   @action startOfWeek(param) {
